@@ -1,7 +1,6 @@
-const cellArray = document.querySelectorAll('.gridCell');
-
 // game board object
 const gameBoard = (() => {
+    const cellArray = document.querySelectorAll('.gridCell');
     const gameState = ['','','','','','','','','',];
     const determinePlayer =()=>{
         if(xPlayer.turnCount<=oPlayer.turnCount){
@@ -13,6 +12,30 @@ const gameBoard = (() => {
             return oPlayer.boardMark;
         };
     };
+    // const gameStateReset=()=>{
+
+    // };
+    const winCheck=()=>{
+        const winCombos = [
+            [gameState[0],gameState[1],gameState[2]],
+            [gameState[3],gameState[4],gameState[5]],
+            [gameState[6],gameState[7],gameState[8]],
+            [gameState[0],gameState[3],gameState[6]],
+            [gameState[1],gameState[4],gameState[7]],
+            [gameState[2],gameState[5],gameState[8]],
+            [gameState[0],gameState[4],gameState[8]],
+            [gameState[2],gameState[4],gameState[6]]
+        ]
+        winCombos.forEach((x)=>{
+            if(x.join('')=='xxx'){
+                console.log('xPlayer WINS!!')
+            }
+            else if(x.join('')=='ooo'){
+                console.log('oPlayer WINS!!')
+            };
+        });
+    };
+    // adds a function to each grid cell that changes the corresponding gamestate index and then updates the grid
     cellArray.forEach((x)=>{
         x.addEventListener('click',()=>{
             let cellNumber = x.getAttribute('data-cell-number') - 1;
@@ -20,8 +43,8 @@ const gameBoard = (() => {
                 return;
             };
             gameState[cellNumber] = `${determinePlayer()}`;
-            console.log(xPlayer.turnCount, oPlayer.turnCount)
             displayController.updateBoard(gameBoard.gameState)
+            winCheck();
         });
     });
     return {gameState,};
