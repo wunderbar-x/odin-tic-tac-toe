@@ -27,19 +27,19 @@ body{
     height: 680px;
     width: 680px;
     display: grid;
-    justify-content: center;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     background-color: white;
     border: 3px solid black;
 }
 .gridCell{
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
     border: 3px solid black;
 }
 .gridCell p{
+    text-align: center;
     font-size: 10em;
 }
 .footer{
