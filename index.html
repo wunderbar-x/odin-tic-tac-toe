@@ -10,22 +10,42 @@
 </head>
 <body>
     <div class="main">
-        <div class="header">
-
+        <div class="overlay">
+            <h1>placeholder</h1>
         </div>
-        <div class="gridCont">
-           <div class="gridCell" data-cell-number="1"><p></p></div>
-           <div class="gridCell" data-cell-number="2"><p></p></div>
-           <div class="gridCell" data-cell-number="3"><p></p></div>
-           <div class="gridCell" data-cell-number="4"><p></p></div>
-           <div class="gridCell" data-cell-number="5"><p></p></div>
-           <div class="gridCell" data-cell-number="6"><p></p></div>
-           <div class="gridCell" data-cell-number="7"><p></p></div>
-           <div class="gridCell" data-cell-number="8"><p></p></div>
-           <div class="gridCell" data-cell-number="9"><p></p></div>
+        <div class="header">
+            <h1>TIC TAC TOE</h1>
+            <button class="start">START</button>
+            <button class="reset">RESET</button>
+        </div>
+        <div class="content">
+            <div class="xplayer">
+                <h1>player 1 - X</h1>
+                <input type="text" placeholder="player 1">
+                <!-- function to have the placeholder text become the user input? -->
+                <button>change name</button>
+                <h2 id="xWins">WINS:0</h2>
+            </div>
+            <div class="gridCont">
+               <div class="gridCell" data-cell-number="1"><p></p></div>
+               <div class="gridCell" data-cell-number="2"><p></p></div>
+               <div class="gridCell" data-cell-number="3"><p></p></div>
+               <div class="gridCell" data-cell-number="4"><p></p></div>
+               <div class="gridCell" data-cell-number="5"><p></p></div>
+               <div class="gridCell" data-cell-number="6"><p></p></div>
+               <div class="gridCell" data-cell-number="7"><p></p></div>
+               <div class="gridCell" data-cell-number="8"><p></p></div>
+               <div class="gridCell" data-cell-number="9"><p></p></div>
+            </div>
+            <div class="oplayer">
+                <h1>player 2 - O</h1>
+                <input type="text" placeholder="player 2">
+                <button>change name</button>
+                <h2 id="oWins">WINS:0</h2>
+            </div>
         </div>
         <div class="footer">
-            <!-- <h3>Odin Tic Tac Toe</h3> -->
+            <h3>Odin Tic Tac Toe</h3>
         </div>
     </div>
 </body>

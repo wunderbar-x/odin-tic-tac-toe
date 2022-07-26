@@ -12,9 +12,12 @@ const gameBoard = (() => {
             return oPlayer.boardMark;
         };
     };
-    // const gameStateReset=()=>{
-
-    // };
+    const gameStateReset=(x)=>{
+        console.log(x.length)
+        for(let i=x.length-1;i>=0;--i){
+            x[i] = '';
+        };
+    };
     const winCheck=()=>{
         const winCombos = [
             [gameState[0],gameState[1],gameState[2]],
@@ -28,10 +31,12 @@ const gameBoard = (() => {
         ]
         winCombos.forEach((x)=>{
             if(x.join('')=='xxx'){
-                console.log('xPlayer WINS!!')
+                ++xPlayer.winCount
+                gameStateReset(gameState);
             }
             else if(x.join('')=='ooo'){
-                console.log('oPlayer WINS!!')
+                ++oPlayer.winCount
+                gameStateReset(gameState);
             };
         });
     };
@@ -43,8 +48,10 @@ const gameBoard = (() => {
                 return;
             };
             gameState[cellNumber] = `${determinePlayer()}`;
-            displayController.updateBoard(gameBoard.gameState)
             winCheck();
+            displayController.updateWinCount();
+            // display win message (5 sec timer?)
+            displayController.updateBoard(gameBoard.gameState)
         });
     });
     return {gameState,};
@@ -53,20 +60,31 @@ const gameBoard = (() => {
 // display controller object
 const displayController = (() => {
     const cellContentArray = document.querySelectorAll('.gridCell p');
+    const xWins = document.getElementById('xWins');
+    const oWins = document.getElementById('oWins');
     const updateBoard = (x) => {
         for(let [i,index] = [x.length,0];i>0;--i,++index){
             cellContentArray[index].textContent = `${x[index]}`;
         };
     }
-    return{updateBoard,};
+    const updateWinCount=()=>{
+        xWins.textContent = `WINS:${xPlayer.winCount}`;
+        oWins.textContent = `WINS:${oPlayer.winCount}`;
+    };
+    const updatePlayerName=()=>{
+        
+    }
+    return{updateBoard,updateWinCount,};
 })();
 
 // factory to create players
-const PlayerFactory = (boardMark) => {
+const PlayerFactory = (boardMark,name) => {
     let turnCount = 0;
-    return {boardMark,turnCount};
+    let winCount = 0;
+    let playerName = name;
+    return {boardMark,turnCount,winCount,playerName};
 };
-const xPlayer = PlayerFactory('x');
-const oPlayer = PlayerFactory('o');
+const xPlayer = PlayerFactory('x','player1');
+const oPlayer = PlayerFactory('o','player2');
 
 displayController.updateBoard(gameBoard.gameState);
