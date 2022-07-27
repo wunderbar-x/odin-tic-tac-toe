@@ -62,6 +62,12 @@ const displayController = (() => {
     const cellContentArray = document.querySelectorAll('.gridCell p');
     const xWins = document.getElementById('xWins');
     const oWins = document.getElementById('oWins');
+
+    // const xPlayerName = document.getElementById('xPlayerName');
+    const xNameDisplay = document.getElementById('xNameDisplay');
+    // const oPlayerName = document.getElementById('oPlayerName');
+    const oNameDisplay = document.getElementById('oNameDisplay');
+
     const updateBoard = (x) => {
         for(let [i,index] = [x.length,0];i>0;--i,++index){
             cellContentArray[index].textContent = `${x[index]}`;
@@ -71,10 +77,17 @@ const displayController = (() => {
         xWins.textContent = `WINS:${xPlayer.winCount}`;
         oWins.textContent = `WINS:${oPlayer.winCount}`;
     };
-    const updatePlayerName=()=>{
-        
-    }
-    return{updateBoard,updateWinCount,};
+    const updatePlayerName=(input,player)=>{
+        player.playerName = input.value;
+        if(player==xPlayer){
+            xNameDisplay.textContent = `${player.playerName} - X`;
+        }
+        else if(player==oPlayer){
+            oNameDisplay.textContent = `${player.playerName} - O`;
+        };
+        input.value = '';
+    };
+    return{updateBoard,updateWinCount,updatePlayerName};
 })();
 
 // factory to create players
@@ -82,7 +95,7 @@ const PlayerFactory = (boardMark,name) => {
     let turnCount = 0;
     let winCount = 0;
     let playerName = name;
-    return {boardMark,turnCount,winCount,playerName};
+    return {boardMark,turnCount,winCount,playerName,};
 };
 const xPlayer = PlayerFactory('x','player1');
 const oPlayer = PlayerFactory('o','player2');
