@@ -13,7 +13,6 @@ const gameBoard = (() => {
         };
     };
     const gameStateReset=(x)=>{
-        console.log(x.length)
         for(let i=x.length-1;i>=0;--i){
             x[i] = '';
         };
@@ -29,6 +28,10 @@ const gameBoard = (() => {
             [gameState[0],gameState[4],gameState[8]],
             [gameState[2],gameState[4],gameState[6]]
         ]
+        // let tieCheck = gameState.every((x)=>{
+        //     !(x==='');
+        // })
+        // console.log(tieCheck)
         winCombos.forEach((x)=>{
             if(x.join('')=='xxx'){
                 ++xPlayer.winCount
@@ -38,7 +41,11 @@ const gameBoard = (() => {
                 ++oPlayer.winCount
                 gameStateReset(gameState);
             };
-        });
+        }); 
+        if(gameState.every((x)=>{return x!=='';})==true){
+            console.log('its a tie.');
+            gameStateReset(gameState);
+        }
     };
     // adds a function to each grid cell that changes the corresponding gamestate index and then updates the grid
     cellArray.forEach((x)=>{
@@ -86,6 +93,7 @@ const displayController = (() => {
             oNameDisplay.textContent = `${player.playerName} - O`;
         };
         input.value = '';
+        console.log({xPlayer,oPlayer})
     };
     return{updateBoard,updateWinCount,updatePlayerName};
 })();
