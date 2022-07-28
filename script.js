@@ -2,6 +2,15 @@
 const gameBoard = (() => {
     const cellArray = document.querySelectorAll('.gridCell');
     const gameState = ['','','','','','','','','',];
+    const gameReset=()=>{
+        gameStateReset(gameState);
+        xPlayer.winCount = 0;
+        xPlayer.turnCount = 0;
+        oPlayer.winCount = 0;
+        oPlayer.turnCount = 0;
+        displayController.updateBoard(gameState);
+        displayController.updateWinCount();
+    };
     const determinePlayer =()=>{
         if(xPlayer.turnCount<=oPlayer.turnCount){
             ++xPlayer.turnCount
@@ -28,10 +37,6 @@ const gameBoard = (() => {
             [gameState[0],gameState[4],gameState[8]],
             [gameState[2],gameState[4],gameState[6]]
         ]
-        // let tieCheck = gameState.every((x)=>{
-        //     !(x==='');
-        // })
-        // console.log(tieCheck)
         winCombos.forEach((x)=>{
             if(x.join('')=='xxx'){
                 ++xPlayer.winCount
@@ -61,7 +66,7 @@ const gameBoard = (() => {
             displayController.updateBoard(gameBoard.gameState)
         });
     });
-    return {gameState,};
+    return {gameState,gameReset};
 })();
 
 // display controller object
@@ -69,6 +74,7 @@ const displayController = (() => {
     const cellContentArray = document.querySelectorAll('.gridCell p');
     const xWins = document.getElementById('xWins');
     const oWins = document.getElementById('oWins');
+    // const resetButton = document.querySelector('.reset');
 
     // const xPlayerName = document.getElementById('xPlayerName');
     const xNameDisplay = document.getElementById('xNameDisplay');

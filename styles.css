@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 body{
     height: 100vh;
@@ -23,6 +24,11 @@ body{
     border: 3px solid black;
 }
 .header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     flex: 1;
     align-self: stretch;
     background-color: white;
@@ -31,14 +37,23 @@ body{
 .content{
     align-self: stretch;
     display: grid;
-    grid-template-columns:repeat(3, 1fr);
+    grid-template-columns:280px 1fr 280px;
+    justify-items: center;
     gap: 20px;
 }
 .xplayer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
     background-color: white;
     border: 3px solid black;
 }
 .oplayer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
     background-color: white;
     border: 3px solid black;
 }
@@ -49,19 +64,22 @@ body{
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     background-color: white;
-    border: 3px solid black;
+    border: 2px solid black;
 }
 .gridCell{
     /* display: flex;
     justify-content: center;
     align-items: center; */
-    border: 3px solid black;
+    border: 2px solid black;
 }
 .gridCell p{
     text-align: center;
     font-size: 10em;
 }
 .footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex: 1;
     align-self: stretch;
     background-color: white;
