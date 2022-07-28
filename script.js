@@ -39,16 +39,18 @@ const gameBoard = (() => {
         ]
         winCombos.forEach((x)=>{
             if(x.join('')=='xxx'){
-                ++xPlayer.winCount
+                ++xPlayer.winCount;
                 gameStateReset(gameState);
+                displayController.winMessage(xPlayer.playerName);
             }
             else if(x.join('')=='ooo'){
-                ++oPlayer.winCount
-                gameStateReset(gameState);
+                ++oPlayer.winCount;
+                displayController.winMessage(oPlayer.playerName);
+                (gameStateReset(gameState));
             };
         }); 
         if(gameState.every((x)=>{return x!=='';})==true){
-            console.log('its a tie.');
+            displayController.winMessage('tie');
             gameStateReset(gameState);
         }
     };
@@ -74,11 +76,9 @@ const displayController = (() => {
     const cellContentArray = document.querySelectorAll('.gridCell p');
     const xWins = document.getElementById('xWins');
     const oWins = document.getElementById('oWins');
-    // const resetButton = document.querySelector('.reset');
-
-    // const xPlayerName = document.getElementById('xPlayerName');
+    const overlay = document.querySelector('.overlay');
+    const overlayMessage = document.querySelector('.overlay h1');
     const xNameDisplay = document.getElementById('xNameDisplay');
-    // const oPlayerName = document.getElementById('oPlayerName');
     const oNameDisplay = document.getElementById('oNameDisplay');
 
     const updateBoard = (x) => {
@@ -90,6 +90,19 @@ const displayController = (() => {
         xWins.textContent = `WINS:${xPlayer.winCount}`;
         oWins.textContent = `WINS:${oPlayer.winCount}`;
     };
+    const winMessage=(x)=>{
+        overlay.style.visibility='visible';
+        if(x=='tie'){
+            overlayMessage.textContent='its a tie.'
+        }
+        else if(x!=='tie'){
+        overlayMessage.textContent=`${x} has won!`;
+        }
+        const okayButton = document.querySelector('.okay');
+        okayButton.addEventListener('click',()=>{
+            overlay.style.visibility='hidden';
+        })
+    }
     const updatePlayerName=(input,player)=>{
         player.playerName = input.value;
         if(player==xPlayer){
@@ -99,9 +112,8 @@ const displayController = (() => {
             oNameDisplay.textContent = `${player.playerName} - O`;
         };
         input.value = '';
-        console.log({xPlayer,oPlayer})
     };
-    return{updateBoard,updateWinCount,updatePlayerName};
+    return{updateBoard,updateWinCount,updatePlayerName,winMessage};
 })();
 
 // factory to create players
@@ -111,7 +123,6 @@ const PlayerFactory = (boardMark,name) => {
     let playerName = name;
     return {boardMark,turnCount,winCount,playerName,};
 };
+
 const xPlayer = PlayerFactory('x','player1');
 const oPlayer = PlayerFactory('o','player2');
-
-displayController.updateBoard(gameBoard.gameState);

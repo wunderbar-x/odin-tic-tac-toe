@@ -18,6 +18,14 @@ body{
     gap: 20px;
 }
 .overlay{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    top: 200px;
+    width: 550px;
+    height: 250px;
     visibility: hidden;
     position:absolute;
     background-color: white;
